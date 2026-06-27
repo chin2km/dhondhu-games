@@ -1,0 +1,28 @@
+.sort-items {
+  display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: center;
+  min-height: 130px; margin-bottom: 26px;
+}
+.sort-chip {
+  width: 74px; height: 74px; border: none; background: none; cursor: grab; padding: 0;
+  display: grid; place-items: center; touch-action: none;
+  transition: transform .12s ease;
+}
+.sort-chip:hover { transform: translateY(-4px) scale(1.05); }
+.sort-chip.dragging { opacity: .25; }
+.sort-chip svg { width: 74px; height: 74px; }
+
+.sort-baskets { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.sort-basket {
+  width: 120px; height: 110px; border-radius: 0 0 28px 28px; border: 5px solid; border-top: none;
+  position: relative; display: grid; place-items: center; padding-top: 12px;
+  box-shadow: 0 8px 0 var(--shadow); transition: transform .12s ease;
+}
+.sort-basket::before {
+  content: ''; position: absolute; top: -16px; left: -5px; right: -5px; height: 16px;
+  border-radius: 16px 16px 0 0; background: currentColor;
+}
+.sort-basket.hot { transform: translateY(-4px) scale(1.04); }
+.sort-basket .count {
+  font-family: var(--display); font-size: 1.4rem; color: #fff;
+  background: rgba(58, 46, 92, .18); border-radius: 999px; min-width: 38px; padding: 2px 8px;
+}

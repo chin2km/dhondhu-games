@@ -1,0 +1,132 @@
+/* ── Car Wash game ─────────────────────────────────────── */
+.wash-stage {
+  width: 100%; height: 100%; min-height: 72vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 20px; position: relative; overflow: hidden;
+  border-radius: 30px; border: 4px solid #fff;
+  background: linear-gradient(180deg, #87CEEB 0%, #B0E0FF 40%, #d4f0d4 70%, #9FC875 100%);
+  box-shadow: inset 0 4px 30px rgba(0, 120, 200, .12);
+}
+[data-theme="dark"] .wash-stage {
+  background: linear-gradient(180deg, #1a3a52 0%, #213048 40%, #1e2e1a 70%, #1a2c12 100%);
+  border-color: var(--line);
+}
+.wash-stage.spraying { cursor: none; }
+
+/* HUD */
+.wash-hud { display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 2; }
+.wash-bar-wrap { width: clamp(200px, 50vw, 400px); }
+.wash-bar-track {
+  position: relative; height: 16px; border-radius: 999px;
+  background: rgba(0,0,0,.15); overflow: visible;
+}
+.wash-bar-fill {
+  height: 100%; border-radius: 999px; max-width: 100%;
+  background: linear-gradient(90deg, #4DABF7, #20C0FF);
+  transition: width .1s linear;
+  box-shadow: 0 0 8px rgba(77, 171, 247, .6);
+}
+.wash-bar-goal {
+  position: absolute; top: -4px; bottom: -4px; width: 3px;
+  background: #FFD700; border-radius: 2px; transform: translateX(-50%);
+}
+
+/* ── 3-D perspective car scene ── */
+.car-scene {
+  position: relative; width: clamp(320px, 72vw, 680px); height: clamp(200px, 40vw, 380px);
+  transform-style: preserve-3d;
+}
+
+/* Dirt + spray overlays sit exactly on top of the scene */
+.dirt-canvas, .spray-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  border-radius: 20px; pointer-events: none;
+}
+.spray-canvas { z-index: 3; }
+
+/* Ground shadow */
+.car-shadow {
+  position: absolute; bottom: 6%; left: 50%; transform: translateX(-50%);
+  width: 76%; height: 10%; background: radial-gradient(ellipse, rgba(0,0,0,.22), transparent);
+  border-radius: 50%; pointer-events: none;
+}
+
+/* ── CSS 3-D car ── */
+.car-3d {
+  position: absolute; bottom: 14%; left: 50%; transform: translateX(-50%);
+  width: 76%; height: 72%;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,.28));
+}
+
+/* Body (longest slab) */
+.car-body {
+  position: absolute; bottom: 22%; left: 5%; right: 5%; height: 42%;
+  background: var(--body); border-radius: 10px 10px 8px 8px;
+  display: flex; align-items: center; justify-content: space-around; padding: 0 10%;
+  box-shadow: inset 0 3px 0 rgba(255,255,255,.3), inset 0 -3px 0 rgba(0,0,0,.2);
+}
+
+/* Roof */
+.car-roof {
+  position: absolute; bottom: 62%; left: 20%; right: 20%; height: 36%;
+  background: var(--roof); border-radius: 14px 14px 4px 4px;
+  box-shadow: inset 0 3px 0 rgba(255,255,255,.25);
+}
+
+/* Hood (front) and trunk (back) */
+.car-hood {
+  position: absolute; bottom: 22%; left: 0; width: 12%; height: 30%;
+  background: var(--body); border-radius: 4px 0 0 4px;
+  box-shadow: inset 0 3px 0 rgba(255,255,255,.2);
+}
+.car-trunk {
+  position: absolute; bottom: 22%; right: 0; width: 12%; height: 26%;
+  background: var(--body); border-radius: 0 4px 4px 0;
+  box-shadow: inset 0 3px 0 rgba(255,255,255,.2);
+}
+
+/* Windows */
+.car-window {
+  width: 30%; height: 70%; background: rgba(160, 220, 255, .75);
+  border-radius: 6px; border: 3px solid rgba(255,255,255,.4);
+  box-shadow: inset 0 2px 6px rgba(255,255,255,.5);
+}
+
+/* Wheels */
+.car-wheels { position: absolute; bottom: -2%; left: 0; right: 0; }
+.wheel {
+  position: absolute; width: clamp(40px, 9%, 68px); height: clamp(40px, 9%, 68px);
+  border-radius: 50%; background: #222; border: 5px solid #444;
+  display: grid; place-items: center;
+}
+.wheel-fl { left: 8%; bottom: 0; }
+.wheel-fr { right: 8%; bottom: 0; }
+.wheel-rl { left: 30%; bottom: 0; }
+.wheel-rr { right: 30%; bottom: 0; }
+.hubcap {
+  width: 45%; height: 45%; border-radius: 50%;
+  background: radial-gradient(#ccc, #888); border: 2px solid #aaa;
+}
+
+/* Lights */
+.light {
+  position: absolute; width: clamp(10px, 2.5%, 18px); height: clamp(6px, 1.8%, 12px);
+  border-radius: 3px;
+}
+.light-fl { left: 0; bottom: 28%; background: #FFFACD; box-shadow: 0 0 6px #ffe; }
+.light-fr { left: 0; bottom: 38%; background: #FFFACD; }
+.light-rl { right: 0; bottom: 28%; background: #FF6B6B; box-shadow: 0 0 6px #f66; }
+.light-rr { right: 0; bottom: 38%; background: #FF6B6B; }
+
+/* Hints */
+.wash-hint {
+  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+  font-weight: 700; font-size: clamp(.8rem, 2.2vw, 1rem); color: rgba(30, 60, 90, .85);
+  white-space: nowrap; pointer-events: none; z-index: 4;
+}
+[data-theme="dark"] .wash-hint { color: rgba(180, 210, 240, .9); }
+.wash-hint.wash-done { color: var(--grape); font-size: 1.15rem; }
+
+/* Custom water-jet cursor when spraying */
+.wash-stage.spraying * { cursor: none !important; }

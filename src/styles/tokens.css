@@ -1,0 +1,45 @@
+:root {
+  /* Ground & ink */
+  --ground: #FFF9F0;
+  --ink: #3A2E5C;       /* grape-biased near-black, chosen not defaulted */
+  --ink-soft: #6B5E8A;
+  --paper: #FFFFFF;
+
+  /* Candy accents — one per game/world */
+  --sun: #FFC93C;       /* stars / rewards */
+  --berry: #FF6B6B;
+  --mint: #34C7A6;
+  --sky: #4DABF7;
+  --grape: #845EF7;
+
+  --shadow: rgba(58, 46, 92, .18);
+
+  /* Surfaces (override in dark mode) */
+  --panel: #FFFFFF;
+  --panel-2: #F1ECFA;
+  --line: #EFEAF7;
+  --bar: rgba(255, 255, 255, .82);
+  --gold-line: #FFE6A8;
+
+  /* Type — reliable rounded stack (no external font fetch) */
+  --display: "Arial Rounded MT Bold", "Baloo 2", "Quicksand", "Nunito", system-ui, sans-serif;
+  --body: "Quicksand", "Nunito", ui-rounded, system-ui, sans-serif;
+
+  /* Spacing scale */
+  --r-sm: 16px;
+  --r-md: 26px;
+  --r-lg: 34px;
+}
+
+:root[data-theme="dark"] {
+  --ground: #0f1722;
+  --ink: #E8EEFF;
+  --ink-soft: #8A9EC0;
+  --paper: #1a2540;
+  --panel: #1a2540;
+  --panel-2: #213052;
+  --line: #2d4068;
+  --bar: rgba(10, 16, 32, .90);
+  --gold-line: #7A5E20;
+  --shadow: rgba(0, 0, 0, .55);
+}

@@ -1,0 +1,42 @@
+.balloon-area {
+  position: relative; width: 100%; height: 100%; min-height: 70vh; overflow: hidden;
+  border-radius: 30px; border: 4px solid #fff;
+  background: linear-gradient(180deg, #FFF0F4 0%, #FFF7E8 55%, #EAF6FF 100%);
+  box-shadow: inset 0 4px 24px rgba(58, 46, 92, .08);
+}
+.balloon-goal {
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 5;
+  display: flex; align-items: center; gap: 10px;
+}
+.balloon-goal .swatch-dot { width: 26px; height: 26px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 3px 0 var(--shadow); }
+
+.balloon {
+  position: absolute; bottom: -210px; border: none; padding: 0; cursor: pointer; background: none;
+  width: 92px; height: 142px; display: block;
+  animation-name: floatUp; animation-timing-function: linear; animation-fill-mode: forwards;
+  -webkit-tap-highlight-color: transparent;
+}
+.balloon .body {
+  display: block; width: 92px; height: 108px; border-radius: 50% 50% 48% 48%; position: relative;
+  box-shadow: inset -12px -10px 20px rgba(0, 0, 0, .14), inset 10px 8px 16px rgba(255, 255, 255, .55);
+}
+.balloon .body::after {
+  content: ''; position: absolute; bottom: -9px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent;
+  border-top: 11px solid currentColor;
+}
+.balloon .shine { position: absolute; top: 14%; left: 20%; width: 24%; height: 32%; border-radius: 50%; background: rgba(255, 255, 255, .7); }
+.balloon .string { display: block; width: 2px; height: 34px; margin: 7px auto 0; background: rgba(58, 46, 92, .3); }
+.balloon:active { transform: scale(.92); }
+@media (prefers-reduced-motion: no-preference) {
+  .balloon.wrong { animation: balloonNo .3s; }
+  @keyframes balloonNo { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(.8) saturate(.6); } }
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) translateX(0) rotate(-2deg); }
+  50% { transform: translateY(-50vh) translateX(22px) rotate(2deg); }
+  100% { transform: translateY(-108vh) translateX(0) rotate(-2deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .balloon { animation-duration: 0s !important; bottom: 35%; }
+}

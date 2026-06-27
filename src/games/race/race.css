@@ -1,0 +1,18 @@
+.race-area {
+  position: relative; width: 100%; height: 100%; min-height: 72vh; overflow: hidden;
+  border-radius: 30px; border: 4px solid #fff; box-shadow: inset 0 4px 24px rgba(58, 46, 92, .12);
+  background: linear-gradient(90deg, #6FA84B 0 14%, #5C9440 14% 16%, #6E6E78 16% 84%, #5C9440 84% 86%, #6FA84B 86%);
+}
+.road-lines {
+  position: absolute; left: 50%; top: -90px; bottom: -90px; width: 10px; transform: translateX(-50%);
+  background: repeating-linear-gradient(180deg, #FFF6D6 0 46px, transparent 46px 100px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .road-lines { animation: roadscroll .35s linear infinite; }
+  @keyframes roadscroll { to { transform: translate(-50%, 100px); } }
+  .race-area.bonk { animation: bonk .25s; }
+  @keyframes bonk { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+}
+.race-car { position: absolute; bottom: 16px; font-size: 64px; transform: translateX(-50%); will-change: left; line-height: 1; filter: drop-shadow(0 4px 4px rgba(0, 0, 0, .25)); }
+.race-item { position: absolute; font-size: 44px; transform: translateX(-50%); will-change: top; line-height: 1; }
+.race-hint { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); color: #fff; font-weight: 700; font-size: .85rem; text-shadow: 0 1px 3px rgba(0, 0, 0, .4); pointer-events: none; }

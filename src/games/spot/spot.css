@@ -1,0 +1,16 @@
+.spot-panels { display: flex; gap: clamp(16px, 3vw, 44px); justify-content: center; align-items: center; flex-wrap: wrap; }
+.spot-grid {
+  display: grid; gap: clamp(8px, 1.4vw, 14px); padding: clamp(14px, 2vw, 22px); border-radius: 28px; background: #fff; border: 3px solid #fff;
+  box-shadow: 0 14px 0 -5px var(--shadow), 0 28px 56px -30px var(--shadow);
+}
+.spot-cell {
+  width: var(--scell); height: var(--scell); border-radius: 16px; border: none; background: #F4ECFF;
+  display: grid; place-items: center; font-size: calc(var(--scell) * 0.62); cursor: pointer;
+  transition: transform .1s ease;
+}
+.spot-cell:hover { transform: scale(1.06); background: #E7DEF6; }
+.spot-cell.found { background: #EAFBF4; box-shadow: inset 0 0 0 4px var(--mint); }
+@media (prefers-reduced-motion: no-preference) {
+  .spot-cell.nope { animation: shake .4s; }
+}
+.spot-vs { align-self: center; font-family: var(--display); font-size: 1.6rem; color: var(--ink-soft); }

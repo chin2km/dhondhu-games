@@ -1,0 +1,137 @@
+/* Shared building blocks used across every game. */
+
+/* ---------- Full-screen "game room" shell ---------- */
+.gameroom {
+  position: fixed; inset: 0; display: flex; flex-direction: column; overflow: hidden;
+  background:
+    radial-gradient(1200px 700px at 80% -10%, color-mix(in srgb, var(--accent, #845EF7) 22%, #fff) 0%, transparent 60%),
+    radial-gradient(1000px 600px at 0% 110%, color-mix(in srgb, var(--accent, #845EF7) 16%, #fff) 0%, transparent 55%),
+    var(--ground);
+}
+.hud {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px clamp(14px, 3vw, 28px); flex: none;
+}
+@media (max-width: 600px) {
+  .hud { padding: 8px 12px; gap: 8px; }
+  .hud .gametitle { font-size: clamp(.9rem, 4vw, 1.1rem); }
+  .stage { padding: 4px 8px 10px; }
+}
+.hud-side { display: flex; align-items: center; gap: 10px; }
+.hud .gametitle { font-family: var(--display); font-size: clamp(1.1rem, 2.6vw, 1.6rem); display: flex; align-items: center; gap: 8px; }
+.hud .gt-icon { font-size: 1.4em; line-height: 1; }
+.stage {
+  flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;
+  padding: 4px clamp(12px, 3vw, 32px) clamp(16px, 3vw, 36px); width: 100%;
+}
+
+.iconpill {
+  display: inline-flex; align-items: center; gap: 8px; font-family: var(--display); font-size: 1.15rem;
+  background: #fff; border: 3px solid #FFE6A8; border-radius: 999px; padding: 7px 16px 7px 12px;
+  box-shadow: 0 5px 0 var(--shadow); color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.iconpill svg { width: 26px; height: 26px; }
+@media (prefers-reduced-motion: no-preference) {
+  .iconpill.bump { animation: bump .4s cubic-bezier(.2, 1.5, .4, 1); }
+}
+
+.gx { width: 100%; max-width: 1080px; text-align: center; margin: 0 auto; }
+.gx-fill { width: 100%; height: 100%; display: flex; flex-direction: column; }
+
+/* Floating in-game score readout, pinned near the top of a play area */
+.play-hud { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); z-index: 5; }
+
+/* ---------- Dark mode game surfaces ---------- */
+[data-theme="dark"] .gameroom {
+  background:
+    radial-gradient(1200px 700px at 80% -10%, color-mix(in srgb, var(--accent, #845EF7) 28%, #000) 0%, transparent 60%),
+    radial-gradient(1000px 600px at 0% 110%, color-mix(in srgb, var(--accent, #845EF7) 20%, #000) 0%, transparent 55%),
+    var(--ground);
+}
+[data-theme="dark"] .iconpill { background: var(--panel-2); border-color: var(--gold-line); color: var(--ink); }
+[data-theme="dark"] .scorepill { background: var(--panel-2); border-color: var(--gold-line); color: var(--ink); }
+[data-theme="dark"] .gx-stage { background: var(--panel); border-color: var(--line); }
+[data-theme="dark"] .scorepill { background: var(--paper); border-color: var(--gold-line); color: var(--ink); }
+[data-theme="dark"] .choice { background: var(--panel-2); border-color: var(--line); box-shadow: 0 6px 0 var(--line); }
+[data-theme="dark"] .rounddots i { background: var(--line); }
+[data-theme="dark"] .bubble-area { background: linear-gradient(180deg, #1d2742 0%, #241d3e 60%, #2a2150 100%); }
+[data-theme="dark"] .balloon-area { background: linear-gradient(180deg, #2c1d38 0%, #241d3e 55%, #1d2742 100%); }
+[data-theme="dark"] .catch-area { background: linear-gradient(180deg, #1d2742 0%, #241d3e 65%, #143030 100%); }
+[data-theme="dark"] .paint-stage { border-color: var(--line); }
+[data-theme="dark"] .paint-tools { background: var(--bar); }
+[data-theme="dark"] .spot-grid { background: var(--panel); border-color: var(--line); }
+[data-theme="dark"] .spot-cell { background: var(--panel-2); }
+[data-theme="dark"] .puzzle-board { background: var(--panel); border-color: var(--line); }
+[data-theme="dark"] .puzzle-tray { background: var(--panel-2); border-color: var(--line); }
+[data-theme="dark"] .puzzle-piece { border-color: var(--line); }
+[data-theme="dark"] .puzzle-slot { border-color: rgba(255, 255, 255, .14); }
+[data-theme="dark"] .thought { background: var(--panel); border-color: var(--line); }
+[data-theme="dark"] .thought::after { border-top-color: var(--panel); }
+[data-theme="dark"] .feed-tray { background: var(--panel-2); border-color: var(--line); }
+[data-theme="dark"] .count-pond { background: linear-gradient(180deg, #1d2742, #2a2150); border-color: var(--line); }
+[data-theme="dark"] .count-item { filter: drop-shadow(0 0 6px rgba(255, 255, 255, .15)); }
+[data-theme="dark"] .mcard .face { background: var(--panel-2); box-shadow: 0 7px 0 #181233; }
+[data-theme="dark"] .mcard.done .face { background: #1f4636; box-shadow: 0 7px 0 #143026; }
+[data-theme="dark"] .sort-chip svg { filter: drop-shadow(0 0 5px rgba(255, 255, 255, .12)); }
+[data-theme="dark"] .popup-area { background: linear-gradient(180deg, #1f3a2a, #15281d); }
+[data-theme="dark"] .race-area { box-shadow: inset 0 4px 24px rgba(0, 0, 0, .35); }
+.gx-hint { color: var(--ink-soft); font-weight: 600; margin: 0 auto 18px; max-width: 42ch; font-size: 1.05rem; }
+
+/* ── On-screen touch controls (mobile keyboard-game steering) ── */
+.touch-controls {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 25;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 16px 18px; pointer-events: none;
+}
+.tc-steer { display: flex; gap: 14px; }
+/* Spread layout: push the two buttons out to the road shoulders */
+.touch-controls.tc-spread { padding-left: 7%; padding-right: 7%; }
+.tc-btn {
+  pointer-events: auto; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;
+  width: 74px; height: 74px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, .9);
+  background: rgba(255, 255, 255, .82); color: var(--ink); font-size: 1.9rem; line-height: 1;
+  display: grid; place-items: center; box-shadow: 0 6px 0 rgba(0, 0, 0, .28); backdrop-filter: blur(4px);
+}
+.tc-btn:active { transform: translateY(3px); box-shadow: 0 3px 0 rgba(0, 0, 0, .28); }
+.tc-fire { width: 88px; height: 88px; font-size: 2.2rem; background: var(--sun); border-color: #fff; color: #5a4200; }
+[data-theme="dark"] .tc-btn { background: rgba(40, 52, 80, .85); border-color: rgba(255, 255, 255, .25); color: var(--ink); }
+[data-theme="dark"] .tc-fire { background: var(--sun); color: #3a2c00; border-color: rgba(255, 255, 255, .4); }
+.gx-foot { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 26px; flex-wrap: wrap; }
+
+.scorepill {
+  display: inline-flex; align-items: center; gap: 8px; font-family: var(--display); font-size: 1.1rem;
+  background: #fff; border: 3px solid #FFE6A8; border-radius: 999px; padding: 8px 16px; box-shadow: 0 5px 0 var(--shadow);
+}
+.scorepill svg { width: 24px; height: 24px; }
+
+/* Round progress dots */
+.rounddots { display: flex; gap: 8px; justify-content: center; margin-bottom: 18px; }
+.rounddots i { width: 14px; height: 14px; border-radius: 50%; background: #E7DEF6; display: block; }
+.rounddots i.on { background: var(--sun); }
+
+/* A row of big tappable choice tiles */
+.choices { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+.choice {
+  width: 100px; height: 100px; border-radius: 24px; border: 4px solid #EFEAF7; background: #fff;
+  box-shadow: 0 6px 0 #EFEAF7; font-size: 3rem; cursor: pointer; display: grid; place-items: center;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.choice:hover { transform: translateY(-4px); }
+.choice.right { border-color: var(--mint); box-shadow: 0 6px 0 var(--mint); }
+@media (prefers-reduced-motion: no-preference) {
+  .choice.wrong { animation: shake .4s; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-7px); } 75% { transform: translateX(7px); } }
+}
+
+/* A panel/stage card games can sit on */
+.gx-stage {
+  background: #fff; border: 3px solid #fff; border-radius: var(--r-lg);
+  box-shadow: 0 14px 0 -6px var(--shadow), 0 24px 50px -28px var(--shadow);
+  padding: 22px; margin: 0 auto;
+}
+
+/* Floating clone shown while dragging (ignores pointer so hit-testing works) */
+.dragclone {
+  position: fixed; pointer-events: none; z-index: 90; transform: translate(-50%, -50%);
+  display: grid; place-items: center; filter: drop-shadow(0 8px 10px rgba(58, 46, 92, .35));
+}

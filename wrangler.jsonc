@@ -1,0 +1,15 @@
+{
+  // Deploys Dhondhu Games as a static single-page app on Cloudflare.
+  // No Worker script ("main") and no @cloudflare/vite-plugin — wrangler simply
+  // uploads the built ./dist folder as static assets. Providing this file stops
+  // wrangler's framework auto-config from injecting the Vite plugin (which needs
+  // a newer Node than Cloudflare's default and was breaking the build).
+  "name": "dhondhu-games",
+  "compatibility_date": "2026-06-27",
+  "assets": {
+    "directory": "./dist",
+    // App uses HashRouter, but this is the safe default for SPAs: serve
+    // index.html for any unknown path instead of a 404.
+    "not_found_handling": "single-page-application"
+  }
+}
